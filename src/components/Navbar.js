@@ -28,9 +28,10 @@ function classNames(...classes) {
 
 
 const handleClick = (e) => {
+  console.log('clicked');
     for(let i = 0; i < navigation.length; i++){
         if(navigation[i].name === e.target.textContent){
-            // console.log(`you clicked on the ${navigation[i].name} button`)
+            console.log(`you clicked on the ${navigation[i].name} button`)
         }
     }
 }
@@ -150,6 +151,7 @@ export default function Navbar() {
                 <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                   {navigation.map((item) => (
                     <Disclosure.Button
+                      onClick={handleClick}
                       key={item.name}
                       as="a"
                       href={item.href}
