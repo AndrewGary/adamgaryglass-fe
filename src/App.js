@@ -4,6 +4,7 @@ import WelcomeMessage from './components/WelcomeMessage';
 import Login from './components/Login';
 import ForgotPasswordPage from './components/ForgotPasswordPage';
 import { Routes, Route } from 'react-router-dom'
+import AddNewProductForm from './components/AddNewProductForm';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        <Route path='/addNewProduct' element={<AddNewProductForm />} />
         <Route path='/login' element={<Login />} />
         <Route path='/forgotPassword' element={<ForgotPasswordPage />} />
       </Routes>
