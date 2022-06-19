@@ -1,9 +1,10 @@
 /* This example requires Tailwind CSS v2.0+ */
+import React, { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline'
+import { BellIcon, MenuIcon, XIcon, ShoppingCartIcon, SearchIcon } from '@heroicons/react/outline'
 
-const user = {
+const defaultUser = {
   name: 'Tom Cook',
   email: 'tom@example.com',
   imageUrl:
@@ -37,6 +38,8 @@ const handleClick = (e) => {
 }
 
 export default function Navbar() {
+
+  const [ user, setUser ] = useState(null);
   return (
     <>
       {/*
@@ -87,21 +90,40 @@ export default function Navbar() {
                   </div>
                   <div className="hidden md:block">
                     <div className="ml-4 flex items-center md:ml-6">
+
                       <button
                         type="button"
                         className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                       >
-                        <span className="sr-only">View notifications</span>
-                        <BellIcon className="h-6 w-6" aria-hidden="true" />
+                        <span className="sr-only">Search Site</span>
+                        <SearchIcon className="h-6 w-6" aria-hidden="true" />
+                      </button>
+
+                      <button
+                        type="button"
+                        className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                      >
+                        <span className="sr-only">View Shopping Cart</span>
+                        <ShoppingCartIcon className="h-6 w-6" aria-hidden="true" />
                       </button>
 
                       {/* Profile dropdown */}
                       <Menu as="div" className="ml-3 relative">
                         <div>
+
+                          {/* Conditional Logic!!! Uncomment this once users are able to sign into the site
+                            {user ? 
+                            <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                              <span className="sr-only">Open user menu</span>
+                              <img className="h-8 w-8 rounded-full" src={defaultUser.imageUrl} alt="" />
+                            </Menu.Button> :
+                            <button>Sign In</button>} */}
+
+                            
                           <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
-                            <span className="sr-only">Open user menu</span>
-                            <img className="h-8 w-8 rounded-full" src={user.imageUrl} alt="" />
-                          </Menu.Button>
+                              <span className="sr-only">Open user menu</span>
+                              <img className="h-8 w-8 rounded-full" src={defaultUser.imageUrl} alt="" />
+                            </Menu.Button>
                         </div>
                         <Transition
                           as={Fragment}
@@ -168,11 +190,11 @@ export default function Navbar() {
                 <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={user.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={defaultUser.imageUrl} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{defaultUser.name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{defaultUser.email}</div>
                     </div>
                     <button
                       type="button"
