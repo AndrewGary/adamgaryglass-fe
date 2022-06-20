@@ -117,7 +117,7 @@ const AddNewProductForm = () => {
               </div>
 
               <div>
-                <label>
+                <label className=" text-gray-500">
                     Select Pictures
                     <input
                     type="file"
@@ -126,6 +126,8 @@ const AddNewProductForm = () => {
                     />
                 </label>
               </div>
+
+
             </div>
 
             <div>

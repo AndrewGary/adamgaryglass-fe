@@ -6,6 +6,7 @@ import ForgotPasswordPage from './components/ForgotPasswordPage';
 import { Routes, Route } from 'react-router-dom'
 import AddNewProductForm from './components/AddNewProductForm';
 import ShoppingCartPage from './components/ShoppingCartPage';
+import CheckIfOfAge from './components/CheckIfOfAge';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        <Route path='/ageVerification' element={<CheckIfOfAge />} />
         <Route path='/shoppingCart' element={<ShoppingCartPage />} />
         <Route path='/addNewProduct' element={<AddNewProductForm />} />
         <Route path='/login' element={<Login />} />
