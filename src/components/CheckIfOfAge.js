@@ -1,25 +1,15 @@
-import { LockClosedIcon } from '@heroicons/react/solid'
-import React, { useState, useEffect } from 'react'
-
-const initalFormValues = {
-    username: '',
-    password: ''
-}
+import React, { useState } from 'react'
 
 const CheckIfOfAge = () => {
 
-    const handleChange = e => {
-        setFormValues({
-            ...formValues,
-            [e.target.name]: e.target.value
-        })
-    }
-
     const handleSubmit = e => {
-        console.log('Submit button clicked');
+        e.preventDefault();
+        if(e.target.name === 'over21'){
+          console.log('user is over21');
+        }else{
+          console.log('user is under 21');
+        }
     }
-
-    const [ formValues, setFormValues ] = useState(initalFormValues);
 
     return (
         <>
@@ -41,19 +31,19 @@ const CheckIfOfAge = () => {
             />
             <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">You must be 21+ to visit this site!</h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
 
             <div className='flex justify-evenly'>
               <button
-                // type="submit"
+                name="over21"
                 className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={handleSubmit}
               >
                 Yes, I'm at least 21
               </button>
               <button
-                // type="submit"
+                name="under21"
                 className="group relative w-1/3 flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={handleSubmit}
               >
