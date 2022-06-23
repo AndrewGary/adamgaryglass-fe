@@ -68,14 +68,13 @@ const AddNewProductForm = () => {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="productName" className="sr-only">
+                <label htmlFor="name" className="sr-only">
                   Product Name
                 </label>
                 <input
-                  id="email-address"
+                  id="name"
                   name="name"
                   type="text"
-                  autoComplete="email"
                   required
                   className="border border-gray-300 placeholder-gray-500 my-2 block w-full px-3 py-2 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Product Name"
@@ -85,12 +84,13 @@ const AddNewProductForm = () => {
               
               <div class="mb-3 w-full">
                 <label
-                  for="productDescription"
+                  htmlFor="description"
                   class="sr-only"
                 >
                   Product Description
                 </label>
                 <textarea
+                  required
                   name='description'
                   className="placeholder-gray-500 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:border-indigo-500 focus:outline-none"
                   id="description"
@@ -104,6 +104,7 @@ const AddNewProductForm = () => {
                   Price
                 </label>
                 <input
+                  required
                   type="number"
                   name="price"
                   id="price"
@@ -113,11 +114,11 @@ const AddNewProductForm = () => {
                 />
               </div>
 
-              <div className=" mb-3 flex border border-gray-300 rounded-md px-3 py-2 justify-start">
-                <label className=" text-gray-500">
+              <div className="flex border border-gray-300 rounded-md px-3 py-2 justify-start">
+                <label htmlFor="category" className=" text-gray-500">
                     Category
                 </label>
-                <select name="category" className="text-gray-500 border border-gray-400 ml-4" onChange={handleChange}>
+                <select required id="category" name="category" className="text-gray-500 border border-gray-400 ml-4" onChange={handleChange}>
                     <option>--Select a Category--</option>
                     <option value="Rig">Rig</option>
                     <option value="Minitube">Minitube</option>
@@ -132,10 +133,10 @@ const AddNewProductForm = () => {
                 </select>
               </div>
 
-              <div class="mb-3 w-full">
+              <div className="mb-3 w-full">
                 <label
-                  for="colors"
-                  class="sr-only"
+                  htmlFor="colors"
+                  className="sr-only"
                 >
                   Colors Used
                 </label>
@@ -150,9 +151,11 @@ const AddNewProductForm = () => {
               </div>
 
               <div>
-                <label className=" text-gray-500">
+                <label htmlFor="fileSelector" className=" text-gray-500">
                     Select Pictures
                     <input
+                    name="fileSelector"
+                    id="fileSelector"
                     type="file"
                     multiple
                     className="border border-gray-300 placeholder-gray-500 my-2 block w-full px-3 py-2 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
