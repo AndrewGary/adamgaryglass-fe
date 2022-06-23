@@ -1,24 +1,46 @@
-import { LockClosedIcon } from "@heroicons/react/solid";
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 
 const initalFormValues = {
-  username: "",
-  password: "",
+  name: '',
+  description: '',
+  price: null,
+  category: '',
+  colors: []
 };
 
 const AddNewProductForm = () => {
-  const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
+
+  const handleChange = (e) => {    
+    if(e.target.name === 'colors'){
+      setColorString(e.target.value);
+    }else{
+      setFormValues({
+        ...formValues,
+        [e.target.name]: e.target.value,
+      });
+    }
   };
 
   const handleSubmit = (e) => {
-    console.log("Submit button clicked");
+    e.preventDefault();
+
+    setFormValues({
+      ...formValues,
+      colors: colorString.split(', ')
+    })
+
+    axios.post('http://localhost:9000/products', formValues)
+    .then(resp => {
+      console.log(resp);
+    })
+    .catch(error => {
+      console.log(error);
+    })
   };
 
   const [formValues, setFormValues] = useState(initalFormValues);
+  const [ colorString, setColorString] = useState();
 
   return (
     <>
@@ -42,7 +64,7 @@ const AddNewProductForm = () => {
               Add New Product
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form className="mt-8 space-y-6">
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -51,7 +73,7 @@ const AddNewProductForm = () => {
                 </label>
                 <input
                   id="email-address"
-                  name="productName"
+                  name="name"
                   type="text"
                   autoComplete="email"
                   required
@@ -69,51 +91,62 @@ const AddNewProductForm = () => {
                   Product Description
                 </label>
                 <textarea
+                  name='description'
                   className="placeholder-gray-500 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:border-indigo-500 focus:outline-none"
-                  id="productDescription"
-                  name="productDescription"
+                  id="description"
                   rows="3"
                   placeholder="Product Description"
+                  onChange={handleChange}
                 ></textarea>
               </div>
-              
-              {/* <div>
-                <label htmlFor="productDescription" className="sr-only">
-                  Product Description
-                </label>
-                <input
-                  id="productDescription"
-                  name="productDescription"
-                  type="textarea"
-                  autoComplete="current-password"
-                  required
-                  className="border border-gray-300 placeholder-gray-500 my-2 block w-full px-3 py-2 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Product Description"
-                />
-              </div> */}
               <div>
                 <label htmlFor="price" className="sr-only">
                   Price
                 </label>
                 <input
-                  type="text"
+                  type="number"
                   name="price"
                   id="price"
                   className="border border-gray-300 placeholder-gray-500 my-2 block w-full px-3 py-2 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Price $"
+                  onChange={handleChange}
                 />
               </div>
 
-              <div className="  flex border border-gray-300 rounded-md px-3 py-2 justify-start ">
+              <div className=" mb-3 flex border border-gray-300 rounded-md px-3 py-2 justify-start">
                 <label className=" text-gray-500">
                     Category
                 </label>
-                <select className=" text-gray-500 border border-gray-400 ml-4">
-                    <option>Rigs</option>
-                    <option>Drys</option>
-                    <option>Pendants</option>
-                    <option>Carb caps</option>
+                <select name="category" className="text-gray-500 border border-gray-400 ml-4" onChange={handleChange}>
+                    <option>--Select a Category--</option>
+                    <option value="Rig">Rig</option>
+                    <option value="Minitube">Minitube</option>
+                    <option value="Colab">Colab</option>
+                    <option value="Spoon">Spoon</option>
+                    <option value="Chillum">Chillum</option>
+                    <option value="Sherlock">Sherlock</option>
+                    <option value="CarbCap">Carb Cap</option>
+                    <option value="Pendant">Pendant</option>
+                    <option value="Cup">Cup</option>
+                    <option value="WeirdoPipe">Weirdo Pipe</option>
                 </select>
+              </div>
+
+              <div class="mb-3 w-full">
+                <label
+                  for="colors"
+                  class="sr-only"
+                >
+                  Colors Used
+                </label>
+                <textarea
+                  name='colors'
+                  className="placeholder-gray-500 block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-clip-padding border border-solid border-gray-300 rounded-md transition ease-in-out m-0 focus:text-gray-700 focus:border-indigo-500 focus:outline-none"
+                  id="colors"
+                  rows="3"
+                  placeholder='Separate colors with a comma.'
+                  onChange={handleChange}
+                ></textarea>
               </div>
 
               <div>
@@ -132,7 +165,6 @@ const AddNewProductForm = () => {
 
             <div>
               <button
-                type="submit"
                 className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={handleSubmit}
               >
