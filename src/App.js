@@ -7,6 +7,7 @@ import { Routes, Route } from 'react-router-dom'
 import AddNewProductForm from './components/AddNewProductForm';
 import ShoppingCartPage from './components/ShoppingCartPage';
 import CheckIfOfAge from './components/CheckIfOfAge';
+import Register from './components/Register';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path='/addNewProduct' element={<AddNewProductForm />} />
         <Route path='/login' element={<Login />} />
         <Route path='/forgotPassword' element={<ForgotPasswordPage />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
       {/* <WelcomeMessage /> */}
       {/* <Login /> */}
