@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { BellIcon, MenuIcon, XIcon, ShoppingCartIcon, SearchIcon } from '@heroicons/react/outline'
+import { useAuth0 } from '@auth0/auth0-react';
 
 const defaultUser = {
   name: 'Tom Cook',
@@ -37,8 +38,11 @@ const handleClick = (e) => {
 }
 
 export default function Navbar() {
+  const { loginWithRedirect } = useAuth0();
+  const { user } = useAuth0();
+  const { logout } = useAuth0();
 
-  const [ user, setUser ] = useState(null);
+  let [ currentUser, setCurrentUser ] = useState(null);
   return (
     <>
       {/*
@@ -110,19 +114,30 @@ export default function Navbar() {
                       <Menu as="div" className="ml-3 relative">
                         <div>
 
-                          {/* Conditional Logic!!! Uncomment this once users are able to sign into the site
+                          {/* Conditional Logic!!! Uncomment this once users are able to sign into the site */}
                             {user ? 
                             <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                               <span className="sr-only">Open user menu</span>
-                              <img className="h-8 w-8 rounded-full" src={defaultUser.imageUrl} alt="" />
+                              <img className="h-8 w-8 rounded-full" src={user.picture} alt="" />
                             </Menu.Button> :
-                            <button>Sign In</button>} */}
+                            <button 
+                              className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                              onClick={loginWithRedirect}
+                            >
+                              Sign In 
+                            </button>}
+                            
+                            {/* <button 
+                              className='text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium'
+                              onClick={() => logout()}
+                            >
+                              Logout 
+                            </button> */}
 
-
-                          <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
+                          {/* <Menu.Button className="max-w-xs bg-gray-800 rounded-full flex items-center text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white">
                               <span className="sr-only">Open user menu</span>
                               <img className="h-8 w-8 rounded-full" src={defaultUser.imageUrl} alt="" />
-                            </Menu.Button>
+                          </Menu.Button> */}
                         </div>
                         <Transition
                           as={Fragment}
@@ -135,7 +150,21 @@ export default function Navbar() {
                         >
                           <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                             {userNavigation.map((item) => (
-                              <Menu.Item key={item.name}>
+                              item.name === 'Sign out' ?
+                              <Menu.Item key={item.name} onClick={() => {logout()}}>
+                                {({ active }) => (
+                                  <div
+                                    href={item.href}
+                                    className={classNames(
+                                      active ? 'bg-gray-100' : '',
+                                      'block px-4 py-2 text-sm text-gray-700'
+                                    )}
+                                  >
+                                    {item.name}
+                                  </div>
+                                )}
+                              </Menu.Item> :
+                              <Menu.Item key={item.name} onClick={() => {console.log(item.name)}}>
                                 {({ active }) => (
                                   <a
                                     href={item.href}
