@@ -8,6 +8,7 @@ import AddNewProductForm from './components/AddNewProductForm';
 import ShoppingCartPage from './components/ShoppingCartPage';
 import CheckIfOfAge from './components/CheckIfOfAge';
 import Register from './components/Register';
+import FileUploadTest from './components/FileUploadTest';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/forgotPassword' element={<ForgotPasswordPage />} />
         <Route path='/register' element={<Register />} />
+        <Route path='/photoUploadTest' element={<FileUploadTest />} />
       </Routes>
       {/* <WelcomeMessage /> */}
       {/* <Login /> */}
