@@ -15,13 +15,22 @@ const AddNewProductForm = () => {
   const handleChange = (e) => {    
     if(e.target.name === 'colors'){
       setColorString(e.target.value);
-    }else{
+    }else if(e.target.name === 'fileSelector'){
+      setFormValues({
+        ...formValues,
+        image: e.target.files[0]
+      })
+    }else {
       setFormValues({
         ...formValues,
         [e.target.name]: e.target.value,
       });
     }
   };
+
+  // const handleFileChange = e => {
+  //   setFileName(e.target.files[0])
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -30,6 +39,8 @@ const AddNewProductForm = () => {
       ...formValues,
       colors: colorString.split(', ')
     })
+
+    const formData = new FormData();
 
     axios.post('http://localhost:9000/products', formValues)
     .then(resp => {
@@ -155,6 +166,7 @@ const AddNewProductForm = () => {
                 <label htmlFor="fileSelector" className=" text-gray-500">
                     Select Pictures
                     <input
+                    onChange={handleChange}
                     name="fileSelector"
                     id="fileSelector"
                     type="file"
