@@ -4,7 +4,7 @@ const FileUploadTest = () => {
 
     const [ fileInputState, setFileInputState ] = useState('');
     const [ selectedFile, setSelectedFile ] = useState('');
-    const [ previewSource, setPreviewSource] = useState('');
+    const [ previewSource, setPreviewSource] = useState([]);
 
     const handleFileInputChange = e => {
         // if(e.target.files.length > 1){
@@ -20,17 +20,34 @@ const FileUploadTest = () => {
         // }
         let files = Object.values(e.target.files);
         console.log(files)
-        files.map(file => {
-            previewFile(file)
-        })
+        // files.map(file => {
+        //     previewFile(file)
+        // })
+        previewFiles(files);
     }
 
-    const previewFile = (file) => {
+    const previewFiles = async (files) => {
+
+        console.log('files: ', files);
         const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onloadend = () => {
-            setPreviewSource(reader.result);
+        for(let i = 0; i < files.length; i++){
+            await reader.readAsDataURL(files[i])
         }
+
+        // files.map(file => {
+        //     reader.readAsDataURL(file);
+        //     reader.onloadend = () => {
+        //         setPreviewSource([
+        //             ...previewSource,
+        //             file
+        //         ])
+        //     }
+        // })
+        // const reader = new FileReader();
+        // reader.readAsDataURL(file);
+        // reader.onloadend = () => {
+        //     setPreviewSource(reader.result);
+        // }
     }
 
     const handleSubmitFile = e => {
@@ -70,12 +87,19 @@ const FileUploadTest = () => {
             </button>
 
             </form>
-            {previewSource && (
-                <img 
-                    src={previewSource}
-                    alt='chosen'
-                    style={{height: '300px'}}
-                />
+            {previewSource.length > 0 && (
+                previewSource.map(image => {
+                    return <img 
+                        src={image}
+                        alt='testing'
+                    />
+                })
+
+                // <img 
+                //     src={previewSource}
+                //     alt='chosen'
+                //     style={{height: '300px'}}
+                // />
             )}
         </div>
     )

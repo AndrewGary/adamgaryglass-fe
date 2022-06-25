@@ -12,25 +12,36 @@ const initalFormValues = {
 
 const AddNewProductForm = () => {
 
-  const handleChange = (e) => {    
-    if(e.target.name === 'colors'){
+  
+  const handleChange = async (e) => {
+    if(e.target.name === 'fileSelector'){
+      const idk = [];
+      const reader = new FileReader();
+      for( const file of e.target.files){
+        await new Promise(resolve => {
+          reader.onload = e => {
+            // console.log('e.target.result: ', e.target.result)
+            idk.push(e.target.result);
+            // setImagePreviews([
+            //   ...imagePreviews,
+            //   e.target.result
+            // ])
+            resolve();
+          }
+          reader.readAsDataURL(file);
+        })
+      }
+      setImagePreviews(idk);
+    }    
+    else if(e.target.name === 'colors'){
       setColorString(e.target.value);
-    }else if(e.target.name === 'fileSelector'){
-      setFormValues({
-        ...formValues,
-        image: e.target.files[0]
-      })
-    }else {
+    }else{
       setFormValues({
         ...formValues,
         [e.target.name]: e.target.value,
       });
     }
   };
-
-  // const handleFileChange = e => {
-  //   setFileName(e.target.files[0])
-  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,8 +50,6 @@ const AddNewProductForm = () => {
       ...formValues,
       colors: colorString.split(', ')
     })
-
-    const formData = new FormData();
 
     axios.post('http://localhost:9000/products', formValues)
     .then(resp => {
@@ -53,6 +62,11 @@ const AddNewProductForm = () => {
 
   const [formValues, setFormValues] = useState(initalFormValues);
   const [ colorString, setColorString] = useState();
+  const [ imagePreviews, setImagePreviews ] = useState([]);
+
+  useEffect(() => {
+    console.log('imagePreviews: ', imagePreviews);
+  }, [imagePreviews])
 
   return (
     <>
@@ -76,7 +90,7 @@ const AddNewProductForm = () => {
               Add New Product
             </h2>
           </div>
-          <form className="mt-8 space-y-6">
+          <form className="mt-8 space-y-6" >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -163,6 +177,13 @@ const AddNewProductForm = () => {
               </div>
 
               <div>
+                <div className="border border-red-500 flex">
+                  {imagePreviews.length > 0 && (
+                    imagePreviews.map(image => {
+                      return <div className="w-14 h-14"><img src={`${image}`} alt='idk'/></div>
+                    })
+                  )}
+                </div>
                 <label htmlFor="fileSelector" className=" text-gray-500">
                     Select Pictures
                     <input
