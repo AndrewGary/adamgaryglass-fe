@@ -215,36 +215,60 @@ export default function Navbar() {
                     </Disclosure.Button>
                   ))}
                 </div>
-                <div className="pt-4 pb-3 border-t border-gray-700">
+                
+
+                {/* working here */}
+                {user ? 
+                  <div className="pt-4 pb-3 border-t border-gray-700">
                   <div className="flex items-center px-5">
                     <div className="flex-shrink-0">
-                      <img className="h-10 w-10 rounded-full" src={defaultUser.imageUrl} alt="" />
+                      <img className="h-10 w-10 rounded-full" src={user.picture} alt="" />
                     </div>
                     <div className="ml-3">
-                      <div className="text-base font-medium leading-none text-white">{defaultUser.name}</div>
-                      <div className="text-sm font-medium leading-none text-gray-400">{defaultUser.email}</div>
+                      <div className="text-base font-medium leading-none text-white">{user.name}</div>
+                      <div className="text-sm font-medium leading-none text-gray-400">{user.email}</div>
                     </div>
-                    <button
-                      type="button"
-                      className="ml-auto bg-gray-800 flex-shrink-0 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                    >
-                      <span className="sr-only">View notifications</span>
-                      <BellIcon className="h-6 w-6" aria-hidden="true" />
-                    </button>
                   </div>
+
                   <div className="mt-3 px-2 space-y-1">
                     {userNavigation.map((item) => (
+                      item.name !== 'Sign out' ?
                       <Disclosure.Button
                         key={item.name}
                         as="a"
                         href={item.href}
                         className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
                       >
+                        {/* jjjj */}
                         {item.name}
-                      </Disclosure.Button>
+                      </Disclosure.Button> :
+                      <Disclosure.Button
+                      onClick={() => {logout()}}
+                      key={item.name}
+                      as="a"
+                      href={item.href}
+                      className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                    >
+                      {/* jjjj */}
+                      {item.name}
+                    </Disclosure.Button>
                     ))}
                   </div>
-                </div>
+                </div> :
+                  <div className="mt-3 px-2 space-y-1">
+                    <Disclosure.Button
+                        onClick={loginWithRedirect}
+                        // key={item.name}
+                        as="a"
+                        // href={item.href}
+                        className="block px-3 py-2 rounded-md text-base font-medium text-gray-400 hover:text-white hover:bg-gray-700"
+                      >
+                        login
+                        {/* {item.name} */}
+                      </Disclosure.Button>
+                  </div>
+                }
+                
               </Disclosure.Panel>
             </>
           )}

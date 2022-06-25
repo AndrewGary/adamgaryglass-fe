@@ -9,6 +9,8 @@ const initalFormValues = {
 
 const Login = () => {
 
+    const { loginWithRedirect } = useAuth0();
+
     const handleChange = e => {
         setFormValues({
             ...formValues,

@@ -6,7 +6,8 @@ const initalFormValues = {
   description: '',
   price: null,
   category: '',
-  colors: []
+  colors: [],
+  image: ''
 };
 
 const AddNewProductForm = () => {
