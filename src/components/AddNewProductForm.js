@@ -15,23 +15,19 @@ const AddNewProductForm = () => {
   
   const handleChange = async (e) => {
     if(e.target.name === 'fileSelector'){
-      const idk = [];
+      const filesForState = [];
       const reader = new FileReader();
       for( const file of e.target.files){
         await new Promise(resolve => {
           reader.onload = e => {
             // console.log('e.target.result: ', e.target.result)
-            idk.push(e.target.result);
-            // setImagePreviews([
-            //   ...imagePreviews,
-            //   e.target.result
-            // ])
+            filesForState.push(e.target.result);
             resolve();
           }
           reader.readAsDataURL(file);
         })
       }
-      setImagePreviews(idk);
+      setImagePreviews(filesForState);
     }    
     else if(e.target.name === 'colors'){
       setColorString(e.target.value);
@@ -43,8 +39,33 @@ const AddNewProductForm = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleImageUpload = async (base64EncodedImage) => {
+    console.log('inside handleImageUpload');
+    const config = {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    }
+    try{
+      await fetch('http://localhost:9000/api/upload', {
+        method: 'POST',
+        body: JSON.stringify({ data: base64EncodedImage }),
+        headers: { 'Content-Type': 'application/json '}
+      })
+      console.log('Success! Image uploaded!');
+    }catch(error){
+      console.log(error);
+      console.log('Something went wrong');
+    }
+  }
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('hereeeee');
+
+    for(let i = 0; i < imagePreviews.length; i++){
+      handleImageUpload(imagePreviews[i]);
+    }
 
     setFormValues({
       ...formValues,
@@ -177,10 +198,10 @@ const AddNewProductForm = () => {
               </div>
 
               <div>
-                <div className="border border-red-500 flex">
+                <div className="border border-red-500 flex items-center justify-evenly">
                   {imagePreviews.length > 0 && (
                     imagePreviews.map(image => {
-                      return <div className="w-14 h-14"><img src={`${image}`} alt='idk'/></div>
+                      return <div className="w-14 h-14 border border-green-600"><img src={`${image}`} alt='idk'/></div>
                     })
                   )}
                 </div>

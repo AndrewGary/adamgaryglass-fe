@@ -43,6 +43,8 @@ export default function Navbar() {
   const { logout } = useAuth0();
 
   let [ currentUser, setCurrentUser ] = useState(null);
+
+  console.log("user: ", user);
   return (
     <>
       {/*
