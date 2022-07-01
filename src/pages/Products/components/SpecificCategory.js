@@ -1,0 +1,40 @@
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import ProductThumbnail from "./ProductThumbnail";
+
+const SpecificCategory = props => {
+    const { category } = props;
+
+    const [ allProducts, setAllProducts ] = useState([]);
+
+    useEffect(() => {
+        axios.get(`http://localhost:9000/api/products/${category}`)
+        .then(resp => {
+            console.log(resp)
+            setAllProducts(resp.data);
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, [])
+
+    useEffect(() => {
+
+    }, [allProducts])
+
+    return(
+        <>
+            <h1>{category}</h1>
+            {/* // Product thumbnail container */}
+            <div className="w-full justify-center flex">
+                {allProducts.map(product => {
+                    return <ProductThumbnail product={product}/>
+                })}
+            </div>
+        </>
+    )
+
+
+}
+
+export default SpecificCategory;

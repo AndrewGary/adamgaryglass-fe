@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { productCategories } from '../siteUtils/productCategories';
 
 const initalFormValues = {
   name: '',
@@ -142,16 +143,9 @@ const AddNewProductForm = () => {
                 </label>
                 <select required id="category" name="category" className="text-gray-500 border border-gray-400 ml-4" onChange={handleChange}>
                     <option>--Select a Category--</option>
-                    <option value="Rig">Rig</option>
-                    <option value="Minitube">Minitube</option>
-                    <option value="Colab">Colab</option>
-                    <option value="Spoon">Spoon</option>
-                    <option value="Chillum">Chillum</option>
-                    <option value="Sherlock">Sherlock</option>
-                    <option value="CarbCap">Carb Cap</option>
-                    <option value="Pendant">Pendant</option>
-                    <option value="Cup">Cup</option>
-                    <option value="WeirdoPipe">Weirdo Pipe</option>
+                    {productCategories.map(category => {
+                      return <option value={`${category}`}>{category}</option>
+                    })}
                 </select>
               </div>
 
