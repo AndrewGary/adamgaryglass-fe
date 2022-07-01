@@ -12,7 +12,6 @@ const initalFormValues = {
 
 const AddNewProductForm = () => {
 
-  
   const handleChange = async (e) => {
     if(e.target.name === 'fileSelector'){
       const filesForState = [];
@@ -42,54 +41,12 @@ const AddNewProductForm = () => {
     }
   };
 
-  // const handleImageUpload = async (base64EncodedImage) => {
-    
-  //   await fetch('http://localhost:9000/api/upload', {
-  //     method: 'POST',
-  //     body: JSON.stringify({data: base64EncodedImage}),
-  //     headers: {'Content-Type': 'application/json'}
-  //   })
-  //   .then((resp) => resp.json())
-  //   .then(data => {
-  //     console.log('hitting response');
-  //     console.log(data);
-  //   })
-  //   .catch(error => {
-  //     console.log(error);
-  //   })
-    
-  //   console.log('inside handleImageUpload');
-  //   const config = {
-  //     headers: {
-  //       "Content-Type": "application/json"
-  //     }
-  //   }
-  //   try{
-  //     let idk = await fetch('http://localhost:9000/api/upload', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ data: base64EncodedImage }),
-  //       headers: { 'Content-Type': 'application/json '}
-  //     })
-  //     console.log('Success! Image uploaded!');
-  //     // console.log('response from server: ', idk)
-  //     return idk;
-  //   }catch(error){
-  //     console.log(error);
-  //     console.log('Something went wrong');
-  //     return 'does not work!!!!'
-  //   }
-  // }
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('hereeeee');
 
-
-    //goal is to send all info to the same endpoint, the endpoint will handle the rest then send back some JSON
     await fetch('http://localhost:9000/api/products', {
       method: 'POST',
       body: JSON.stringify({data: formValues}),
-      // body: JSON.stringify({data: imagePreviews, formValues: formValues}),
       headers: {'Content-Type': 'application/json'}
     })
     .then(resp => {
@@ -98,67 +55,6 @@ const AddNewProductForm = () => {
     .catch(error => {
       console.log(error);
     })
-
-    // const imageURLs = [];
-    // for(let i = 0; i < imagePreviews.length; i++){
-    //   await fetch('http://localhost:9000/api/products', {
-    //         method: 'POST',
-    //         body: JSON.stringify({data: imagePreviews[i]}),
-    //         headers: {'Content-Type': 'application/json'}
-    //     })
-    //     .then((response)=> response.json())
-    //     .then(data => {
-    //       console.log('typeof data: ',typeof data);
-    //       console.log('typeof data.secure_url: ', typeof data.secure_url);
-    //       imageURLs.push(data.secure_url);
-          
-    //       })
-          
-    // }
-    
-    // console.log('imageURLs: ', imageURLs)
-    // setFormValues({
-    //   ...formValues,
-    //   images: imageURLs,
-    //   colors: colorString ? colorString.split(', ') : ''
-    // })
-
-    console.log(formValues)
-
-
-
-    // console.log('formValues: ', formValues)
-    // fetch('http://localhost:9000/api/upload', {
-    //         method: 'POST',
-    //         body: JSON.stringify({data: previewSource}),
-    //         headers: {'Content-Type': 'application/json'}
-    //     })
-    //     .then((response)=> response.json())
-    //     .then(data => {
-    //         console.log('hitting response');
-    //         console.log(data)
-    //     })
-    //     .catch(error => {
-    //         console.log(error);
-    //     })
-
-    // for(let i = 0; i < imagePreviews.length; i++){
-    //   const please = await handleImageUpload(imagePreviews[i]);
-    //   console.log('idk from handleImageUpload: ', please);
-    // }
-
-    // setFormValues({
-    //   ...formValues,
-    //   colors: colorString.split(', ')
-    // })
-    // console.log('formValues before posting to DB: ', formValues);
-    // axios.post('http://localhost:9000/products', formValues)
-    // .then(resp => {
-    //   console.log(resp);
-    // })
-    // .catch(error => {
-    //   console.log(error);
-    // })
   };
 
   const [formValues, setFormValues] = useState(initalFormValues);
@@ -273,6 +169,7 @@ const AddNewProductForm = () => {
                   rows="3"
                   placeholder='Separate colors with a comma.'
                   onChange={handleChange}
+                  on
                 ></textarea>
               </div>
 
