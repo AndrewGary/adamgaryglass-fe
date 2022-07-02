@@ -10,7 +10,7 @@ const Categories = props => {
       }
 
     return (
-        <div className="border border-red-900 flex justify-center">
+        <div className="hidden md:flex border border-red-900  justify-center">
           <div className="w-3/4">
             <h1>Collections</h1>
             {/* Collections conatiner */}

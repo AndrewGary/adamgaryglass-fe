@@ -10,6 +10,7 @@ import CheckIfOfAge from './components/CheckIfOfAge';
 import Register from './components/Register';
 import FileUploadTest from './components/FileUploadTest';
 import Products from './pages/Products/Products';
+import ProductDetails from './pages/Products/components/ProductDetails';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        <Route path='/productDetails/:id' element={<ProductDetails />} />
         <Route path='/products' element={<Products />} />
         <Route path='/ageVerification' element={<CheckIfOfAge />} />
         <Route path='/shoppingCart' element={<ShoppingCartPage />} />

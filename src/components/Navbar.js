@@ -13,7 +13,7 @@ const defaultUser = {
 }
 const navigation = [
   { name: 'Home', href: '#', current: true },
-  { name: 'Shop', href: '#', current: false },
+  { name: 'Shop', href: '/products', current: false },
   { name: 'NewWork', href: '#', current: false },
   { name: 'Contact', href: '#', current: false },
 ]

@@ -26,10 +26,12 @@ const SpecificCategory = props => {
         <>
             <h1>{category}</h1>
             {/* // Product thumbnail container */}
-            <div className="w-full justify-center flex">
-                {allProducts.map(product => {
-                    return <ProductThumbnail product={product}/>
-                })}
+            <div className="w-full justify-center flex border border-green-500">
+                <div className="border border-black w-3/4 flex justify-center">
+                    {allProducts.map(product => {
+                        return <ProductThumbnail product={product}/>
+                    })}
+                </div>
             </div>
         </>
     )
