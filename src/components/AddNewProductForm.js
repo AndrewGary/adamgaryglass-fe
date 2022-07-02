@@ -13,6 +13,13 @@ const initalFormValues = {
 
 const AddNewProductForm = () => {
 
+  const handleBlur = e =>{
+    setFormValues({
+      ...formValues,
+      colors: e.target.value.split(', ')
+    })
+  }
+
   const handleChange = async (e) => {
     if(e.target.name === 'fileSelector'){
       const filesForState = [];
@@ -31,10 +38,7 @@ const AddNewProductForm = () => {
         ...formValues,
         images: filesForState
       })
-    }    
-    else if(e.target.name === 'colors'){
-      setColorString(e.target.value);
-    }else{
+    } else{
       setFormValues({
         ...formValues,
         [e.target.name]: e.target.value,
@@ -59,7 +63,6 @@ const AddNewProductForm = () => {
   };
 
   const [formValues, setFormValues] = useState(initalFormValues);
-  const [ colorString, setColorString] = useState();
   const [ imagePreviews, setImagePreviews ] = useState([]);
 
   useEffect(() => {
@@ -162,8 +165,7 @@ const AddNewProductForm = () => {
                   id="colors"
                   rows="3"
                   placeholder='Separate colors with a comma.'
-                  onChange={handleChange}
-                  on
+                  onBlur={handleBlur}
                 ></textarea>
               </div>
 
