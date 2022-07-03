@@ -12,12 +12,15 @@ const Categories = props => {
     return (
         <div className="hidden md:flex border border-red-900  justify-center">
           <div className="w-3/4">
-            <h1>Collections</h1>
+            {/* <img src='/SherlockDefaultPhoto.jpeg' /> */}
+            <h1 className=" my-4 text-3xl border-b-2 border-gray-300 pb-2">Collections</h1>
             {/* Collections conatiner */}
-            <div className="flex flex-wrap justify-center w-full border border-green-500">
+            <div className="flex flex-wrap justify-center w-full">
               {productCategories.map((category) => {
                 return (
-                  <div onClick={handleCategorySelection} className="flex justify-center items-center m-5 w-40 h-40 border border-red-500">
+                  <div onClick={handleCategorySelection} className="bg-sherlockDefault bg-cover 
+                    flex justify-center items-center m-5 w-40 h-40 border border-gray-200 text-xl font-bold
+                    hover:font-extrabold hover:border-gray-400">
                     {category}
                   </div>
                 );
