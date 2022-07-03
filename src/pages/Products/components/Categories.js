@@ -9,6 +9,8 @@ const Categories = props => {
         setSelectedCategory(e.target.textContent);
       }
 
+    const index = 0;
+
     return (
         <div className="hidden md:flex border border-red-900  justify-center">
           <div className="w-3/4">
@@ -18,10 +20,10 @@ const Categories = props => {
             <div className="flex flex-wrap justify-center w-full">
               {productCategories.map((category) => {
                 return (
-                  <div onClick={handleCategorySelection} className="bg-sherlockDefault bg-cover 
+                  <div onClick={handleCategorySelection} className={`${category.backgound} bg-center bg-cover 
                     flex justify-center items-center m-5 w-40 h-40 border border-gray-200 text-xl font-bold
-                    hover:font-extrabold hover:border-gray-400">
-                    {category}
+                    hover:font-extrabold hover:border-gray-400`}>
+                    {category.name}
                   </div>
                 );
               })}

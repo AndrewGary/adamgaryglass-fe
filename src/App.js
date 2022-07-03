@@ -11,6 +11,7 @@ import Register from './components/Register';
 import FileUploadTest from './components/FileUploadTest';
 import Products from './pages/Products/Products';
 import ProductDetails from './pages/Products/components/ProductDetails';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Navbar />
 
       <Routes>
+        <Route path='/footer' element={<Footer />} />
         <Route path='/productDetails/:id' element={<ProductDetails />} />
         <Route path='/products' element={<Products />} />
         <Route path='/ageVerification' element={<CheckIfOfAge />} />

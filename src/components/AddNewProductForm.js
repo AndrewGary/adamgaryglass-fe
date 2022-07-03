@@ -147,7 +147,7 @@ const AddNewProductForm = () => {
                 <select required id="category" name="category" className="text-gray-500 border border-gray-400 ml-4" onChange={handleChange}>
                     <option>--Select a Category--</option>
                     {productCategories.map(category => {
-                      return <option value={`${category}`}>{category}</option>
+                      return <option value={`${category.name}`}>{category.name}</option>
                     })}
                 </select>
               </div>

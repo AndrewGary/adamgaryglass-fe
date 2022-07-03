@@ -5,7 +5,10 @@ module.exports = {
   ],
   theme: {
     backgroundImage: {
-      'sherlockDefault': "url('../public/SherlockDefaultPhoto.jpeg')"
+      'SherlocksDefault': "url('../public/SherlockDefaultPhoto.jpeg')",
+      'RigsDefault': "url('../public/RigsDefaultPhoto.PNG')",
+      'MinitubesDefault': "url('../public/MinitubeDefaultPhoto.jpg')",
+
     },
     extend: {},
   },
